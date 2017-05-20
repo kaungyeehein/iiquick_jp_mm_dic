@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<action-mappings>
+		
+		<action path="/GetOnline" type="com.iiquick.boot.GetOnlineAction" />
+
+		<action path="/Home" type="com.iiquick.action.GetAllWTypeAction">
+			<forward name="success" path="/mainpage.jsp" />
+			<forward name="fail" path="/mainpage.jsp" />
+		</action>
+		
+		<action path="/Json" type="com.iiquick.action.JsonAction" />
+
+		<action path="/InsertNewWord" type="com.iiquick.action.InsertNewWordAction" />
+
+		<action path="/InsertWord" type="com.iiquick.action.InsertWordAction" />
+
+		<action path="/CheckUser" type="com.iiquick.action.CheckUserAction" />
+
+		<action path="/GetWordList" type="com.iiquick.action.GetWordListAction" />
+
+		<action path="/GetSearchCount" type="com.iiquick.action.GetSearchCountAction" />
+
+		<action path="/Search" type="com.iiquick.action.SearchAction" />
+
+		<action path="/IncreaseCorrect"
+			type="com.iiquick.action.IncreaseCorrectAction" />
+
+		<action path="/IncreaseIncorrect"
+			type="com.iiquick.action.IncreaseIncorrectAction" />
+
+		<action path="/Delete"
+			type="com.iiquick.action.DeleteAction" />
+
+	</action-mappings>
+
+	<plug-in className="org.springframework.web.struts.ContextLoaderPlugIn">
+		<set-property property="contextConfigLocation" value="/WEB-INF/*-context.xml" />
+	</plug-in>
+</struts-config>

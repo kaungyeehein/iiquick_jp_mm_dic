@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="WType">
+
+	<cacheModel id="wTypeCache" type="MEMORY" readOnly="false"
+		serialize="true">
+		<flushInterval hours="24" />
+		<flushOnExecute statement="WType.insert" />
+	</cacheModel>
+
+	<typeAlias alias="WTypeObject" type="com.iiquick.domain.WType" />
+
+	<resultMap id="WTypeResult" class="WTypeObject">
+		<result property="id" column="wtid" />
+		<result property="value" column="wtname" />
+		<result property="desc" column="wtdescription" />
+	</resultMap>
+
+	<insert id="insert" parameterClass="WTypeObject">
+		INSERT INTO
+		wt ( wtname , wtdescription )
+		VALUES ( #value# , #desc# )
+    </insert>
+
+	<select id="getAll" resultMap="WTypeResult">
+		SELECT wtid, wtname, wtdescription
+		FROM wt
+		WHERE wtstatus = '1'
+		ORDER BY wtname ASC;
+	</select>
+
+</sqlMap>

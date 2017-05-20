@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//T" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="JM">
+
+	<cacheModel id="jmCache" type="MEMORY" readOnly="false"
+		serialize="true">
+		<flushInterval hours="24" />
+		<!-- <flushOnExecute statement="T.insertT" /> -->
+	</cacheModel>
+
+	<typeAlias alias="resultObject" type="com.iiquick.domain.Result" />
+
+	<resultMap id="t2ResultMap" class="resultObject">
+		<result property="id" column="t2id" />
+		<result property="word1" column="mmword" />
+		<result property="word2" column="jmword" />
+		<result property="word3" column="jmromaji" />
+		<result property="wtype" column="wtname" />
+		<result property="correct" column="t2correct" />
+		<result property="incorrect" column="t2incorrect" />
+	</resultMap>
+
+	<resultMap id="t3ResultMap" class="resultObject">
+		<result property="id" column="t3id" />
+		<result property="word1" column="enword" />
+		<result property="word2" column="jmword" />
+		<result property="word3" column="jmromaji" />
+		<result property="wtype" column="wtname" />
+		<result property="correct" column="t3correct" />
+		<result property="incorrect" column="t3incorrect" />
+	</resultMap>
+
+	<resultMap id="t6ResultMap" class="resultObject">
+		<result property="id" column="t6id" />
+		<result property="word1" column="jkword" />
+		<result property="word2" column="jmword" />
+		<result property="word3" column="jmromaji" />
+		<result property="wtype" column="wtname" />
+		<result property="correct" column="t6correct" />
+		<result property="incorrect" column="t6incorrect" />
+	</resultMap>
+
+	<select id="getJMByMmword" resultMap="t2ResultMap" parameterClass="java.lang.String">
+		SELECT t2.t2id, mm.mmword, jm.jmword, jm.jmromaji, wt.wtname, t2.t2correct, t2.t2incorrect
+		FROM
+		jm INNER JOIN t2_mm_jm AS t2
+		ON t2.jmid = jm.jmid INNER JOIN mm
+		ON t2.mmid = mm.mmid INNER JOIN wt
+		ON t2.wtid = wt.wtid
+		WHERE jm.jmstatus = '1' AND t2.t2status = '1' AND mm.mmstatus = '1'
+		AND wt.wtstatus = '1' AND mm.mmword = #value#;
+	</select>
+	
+	<select id="getJMByEnword" resultMap="t3ResultMap" parameterClass="java.lang.String">
+		SELECT t3.t3id, en.enword, jm.jmword, jm.jmromaji, wt.wtname, t3.t3correct, t3.t3incorrect
+		FROM
+		jm INNER JOIN t3_en_jm AS t3
+		ON t3.jmid = jm.jmid INNER JOIN en
+		ON t3.enid = en.enid INNER JOIN wt
+		ON t3.wtid = wt.wtid
+		WHERE jm.jmstatus = '1' AND t3.t3status = '1' AND en.enstatus = '1'
+		AND wt.wtstatus = '1' AND en.enword = #value#;
+	</select>
+	
+	<select id="getJMByJkword" resultMap="t6ResultMap" parameterClass="java.lang.String">
+		SELECT t6.t6id, jm.jmword, jk.jkword, jm.jmromaji, wt.wtname, t6.t6correct, t6.t6incorrect
+		FROM
+		jm INNER JOIN t6_jm_jk AS t6
+		ON t6.jmid = jm.jmid INNER JOIN jk
+		ON t6.jkid = jk.jkid INNER JOIN wt
+		ON t6.wtid = wt.wtid
+		WHERE jm.jmstatus = '1' AND t6.t6status = '1' AND jk.jkstatus = '1'
+		AND wt.wtstatus = '1' AND jk.jkword = #value#;
+	</select>
+
+</sqlMap>

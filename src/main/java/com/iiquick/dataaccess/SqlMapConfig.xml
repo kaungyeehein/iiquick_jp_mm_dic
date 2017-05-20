@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig
+    PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<settings enhancementEnabled="true" useStatementNamespaces="true" />
+	<sqlMap resource="com/iiquick/dataaccess/App.xml" />
+	<sqlMap resource="com/iiquick/dataaccess/EN.xml" />
+	<sqlMap resource="com/iiquick/dataaccess/JK.xml" />
+	<sqlMap resource="com/iiquick/dataaccess/JM.xml" />
+	<sqlMap resource="com/iiquick/dataaccess/MM.xml" />
+	<sqlMap resource="com/iiquick/dataaccess/Table.xml" />
+	<sqlMap resource="com/iiquick/dataaccess/Word.xml" />
+	<sqlMap resource="com/iiquick/dataaccess/WType.xml" />
+</sqlMapConfig>
+

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="Table">
+
+	<cacheModel id="tableCache" type="MEMORY" readOnly="false" serialize="true">
+		<flushInterval hours="24" />
+		<flushOnExecute statement="Table.insertT1" />
+		<flushOnExecute statement="Table.insertT2" />
+		<flushOnExecute statement="Table.insertT3" />
+		<flushOnExecute statement="Table.insertT4" />
+		<flushOnExecute statement="Table.insertT5" />
+		<flushOnExecute statement="Table.insertT6" />
+		<flushOnExecute statement="Table.increaseCorrectT1" />
+		<flushOnExecute statement="Table.increaseCorrectT2" />
+		<flushOnExecute statement="Table.increaseCorrectT3" />
+		<flushOnExecute statement="Table.increaseCorrectT4" />
+		<flushOnExecute statement="Table.increaseCorrectT5" />
+		<flushOnExecute statement="Table.increaseCorrectT6" />
+		<flushOnExecute statement="Table.increaseIncorrectT1" />
+		<flushOnExecute statement="Table.increaseIncorrectT2" />
+		<flushOnExecute statement="Table.increaseIncorrectT3" />
+		<flushOnExecute statement="Table.increaseIncorrectT4" />
+		<flushOnExecute statement="Table.increaseIncorrectT5" />
+		<flushOnExecute statement="Table.increaseIncorrectT6" />
+		<flushOnExecute statement="Table.deleteT1" />
+		<flushOnExecute statement="Table.deleteT2" />
+		<flushOnExecute statement="Table.deleteT3" />
+		<flushOnExecute statement="Table.deleteT4" />
+		<flushOnExecute statement="Table.deleteT5" />
+		<flushOnExecute statement="Table.deleteT6" />
+	</cacheModel>
+
+	<typeAlias alias="tableObject" type="com.iiquick.domain.Table" />
+	
+	<resultMap id="tableResult" class="tableObject">
+		<result property="id" columnIndex="1" />
+		<result property="wtid" columnIndex="2" />
+		<result property="word1id" columnIndex="3" />
+		<result property="word2id" columnIndex="4" />
+	</resultMap>
+	
+	<select id="getAllT1" resultMap="tableResult">
+		SELECT t1.t1id, t1.wtid, t1.mmid, t1.enid
+		FROM t1_mm_en as t1
+		WHERE t1.t1status = '1'
+	</select>
+	<select id="getAllT2" resultMap="tableResult">
+		SELECT t2.t2id, t2.wtid, t2.mmid, t2.jmid
+		FROM t2_mm_jm as t2
+		WHERE t2.t2status = '1'
+	</select>
+	<select id="getAllT3" resultMap="tableResult">
+		SELECT t3.t3id, t3.wtid, t3.enid, t3.jmid
+		FROM t3_en_jm as t3
+		WHERE t3.t3status = '1'
+	</select>
+	<select id="getAllT4" resultMap="tableResult">
+		SELECT t4.t4id, t4.wtid, t4.mmid, t4.jkid
+		FROM t4_mm_jk as t4
+		WHERE t4.t4status = '1'
+	</select>
+	<select id="getAllT5" resultMap="tableResult">
+		SELECT t5.t5id, t5.wtid, t5.enid, t5.jkid
+		FROM t5_en_jk as t5
+		WHERE t5.t5status = '1'
+	</select>
+	<select id="getAllT6" resultMap="tableResult">
+		SELECT t6.t6id, t6.wtid, t6.jmid, t6.jkid
+		FROM t6_jm_jk as t6
+		WHERE t6.t6status = '1'
+	</select>
+
+	<insert id="insertT1" parameterClass="tableObject">
+		INSERT INTO
+		t1_mm_en ( mmid , enid , wtid , t1date )
+		VALUES ( #word1id# , #word2id# , #wtid# , NOW() )
+	</insert>
+	<insert id="insertT2" parameterClass="tableObject">
+		INSERT INTO
+		t2_mm_jm ( mmid , jmid , wtid , t2date )
+		VALUES ( #word1id# , #word2id# , #wtid# , NOW() )
+	</insert>
+	<insert id="insertT3" parameterClass="tableObject">
+		INSERT INTO
+		t3_en_jm ( enid , jmid , wtid , t3date )
+		VALUES ( #word1id# , #word2id# , #wtid# , NOW() )
+	</insert>
+	<insert id="insertT4" parameterClass="tableObject">
+		INSERT INTO
+		t4_mm_jk ( mmid , jkid , wtid , t4date )
+		VALUES ( #word1id# , #word2id# , #wtid# , NOW() )
+	</insert>
+	<insert id="insertT5" parameterClass="tableObject">
+		INSERT INTO
+		t5_en_jk ( enid , jkid , wtid , t5date )
+		VALUES ( #word1id# , #word2id# , #wtid# , NOW() )
+	</insert>
+	<insert id="insertT6" parameterClass="tableObject">
+		INSERT INTO
+		t6_jm_jk ( jmid , jkid , wtid , t6date )
+		VALUES ( #word1id# , #word2id# , #wtid# , NOW() )
+	</insert>
+	
+	<select id="checkT1" resultClass="tableObject" parameterClass="tableObject">
+		SELECT mmid AS word1id , enid AS word2id , wtid 
+		FROM t1_mm_en
+		WHERE t1status = '1' AND mmid = #word1id# AND enid = #word2id# AND wtid = #wtid#
+	</select>	
+	<select id="checkT2" resultClass="tableObject" parameterClass="tableObject">
+		SELECT mmid AS word1id , jmid AS word2id , wtid 
+		FROM t2_mm_jm
+		WHERE t2status = '1' AND mmid = #word1id# AND jmid = #word2id# AND wtid = #wtid#
+	</select>	
+	<select id="checkT3" resultClass="tableObject" parameterClass="tableObject">
+		SELECT enid AS word1id , jmid AS word2id , wtid 
+		FROM t3_en_jm
+		WHERE t3status = '1' AND enid = #word1id# AND jmid = #word2id# AND wtid = #wtid#
+	</select>	
+	<select id="checkT4" resultClass="tableObject" parameterClass="tableObject">
+		SELECT mmid AS word1id , jkid AS word2id , wtid 
+		FROM t4_mm_jk
+		WHERE t4status = '1' AND mmid = #word1id# AND jkid = #word2id# AND wtid = #wtid#
+	</select>	
+	<select id="checkT5" resultClass="tableObject" parameterClass="tableObject">
+		SELECT enid AS word1id , jkid AS word2id , wtid 
+		FROM t5_en_jk
+		WHERE t5status = '1' AND enid = #word1id# AND jkid = #word2id# AND wtid = #wtid#
+	</select>	
+	<select id="checkT6" resultClass="tableObject" parameterClass="tableObject">
+		SELECT jmid AS word1id , jkid AS word2id , wtid 
+		FROM t6_jm_jk
+		WHERE t6status = '1' AND jmid = #word1id# AND jkid = #word2id# AND wtid = #wtid#
+	</select>
+	
+	<select id="countT1" resultClass="java.lang.Integer" >
+		SELECT COUNT(*) FROM t1_mm_en WHERE t1status = '1'
+	</select>	
+	<select id="countT2" resultClass="java.lang.Integer" >
+		SELECT COUNT(*) FROM t2_mm_jm WHERE t2status = '1'
+	</select>	
+	<select id="countT3" resultClass="java.lang.Integer" >
+		SELECT COUNT(*) FROM t3_en_jm WHERE t3status = '1'
+	</select>	
+	<select id="countT4" resultClass="java.lang.Integer" >
+		SELECT COUNT(*) FROM t4_mm_jk WHERE t4status = '1'
+	</select>
+		<select id="countT5" resultClass="java.lang.Integer" >
+		SELECT COUNT(*) FROM t5_en_jk WHERE t5status = '1'
+	</select>	
+	<select id="countT6" resultClass="java.lang.Integer" >
+		SELECT COUNT(*) FROM t6_jm_jk WHERE t6status = '1'
+	</select>
+	
+	<update id="increaseCorrectT1" parameterClass="java.lang.Integer">
+		UPDATE t1_mm_en
+		SET t1correct = t1correct + 1
+		WHERE t1status = '1' AND t1id = #value#
+	</update>	
+	<update id="increaseCorrectT2" parameterClass="java.lang.Integer">
+		UPDATE t2_mm_jm
+		SET t2correct = t2correct + 1
+		WHERE t2status = '1' AND t2id = #value#
+	</update>	
+	<update id="increaseCorrectT3" parameterClass="java.lang.Integer">
+		UPDATE t3_en_jm
+		SET t3correct = t3correct + 1
+		WHERE t3status = '1' AND t3id = #value#
+	</update>	
+	<update id="increaseCorrectT4" parameterClass="java.lang.Integer">
+		UPDATE t4_mm_jk
+		SET t4correct = t4correct + 1
+		WHERE t4status = '1' AND t4id = #value#
+	</update>	
+	<update id="increaseCorrectT5" parameterClass="java.lang.Integer">
+		UPDATE t5_en_jk
+		SET t5correct = t5correct + 1
+		WHERE t5status = '1' AND t5id = #value#
+	</update>	
+	<update id="increaseCorrectT6" parameterClass="java.lang.Integer">
+		UPDATE t6_jm_jk
+		SET t6correct = t6correct + 1
+		WHERE t6status = '1' AND t6id = #value#
+	</update>
+	
+	<update id="increaseIncorrectT1" parameterClass="java.lang.Integer">
+		UPDATE t1_mm_en
+		SET t1incorrect = t1incorrect + 1
+		WHERE t1status = '1' AND t1id = #value#
+	</update>	
+	<update id="increaseIncorrectT2" parameterClass="java.lang.Integer">
+		UPDATE t2_mm_jm
+		SET t2incorrect = t2incorrect + 1
+		WHERE t2status = '1' AND t2id = #value#
+	</update>	
+	<update id="increaseIncorrectT3" parameterClass="java.lang.Integer">
+		UPDATE t3_en_jm
+		SET t3incorrect = t3incorrect + 1
+		WHERE t3status = '1' AND t3id = #value#
+	</update>
+	<update id="increaseIncorrectT4" parameterClass="java.lang.Integer">
+		UPDATE t4_mm_jk
+		SET t4incorrect = t4incorrect + 1
+		WHERE t4status = '1' AND t4id = #value#
+	</update>	
+	<update id="increaseIncorrectT5" parameterClass="java.lang.Integer">
+		UPDATE t5_en_jk
+		SET t5incorrect = t5incorrect + 1
+		WHERE t5status = '1' AND t5id = #value#
+	</update>	
+	<update id="increaseIncorrectT6" parameterClass="java.lang.Integer">
+		UPDATE t6_jm_jk
+		SET t6incorrect = t6incorrect + 1
+		WHERE t6status = '1' AND t6id = #value#
+	</update>
+	
+	<update id="deleteT1" parameterClass="java.lang.Integer">
+		UPDATE t1_mm_en
+		SET t1status = '0'
+		WHERE t1status = '1' AND t1id = #value#
+	</update>	
+	<update id="deleteT2" parameterClass="java.lang.Integer">		
+		UPDATE t2_mm_jm
+		SET t2status = '0'
+		WHERE t2status = '1' AND t2id = #value#
+	</update>	
+	<update id="deleteT3" parameterClass="java.lang.Integer">
+		UPDATE t3_en_jm
+		SET t3status = '0'
+		WHERE t3status = '1' AND t3id = #value#
+	</update>	
+	<update id="deleteT4" parameterClass="java.lang.Integer">
+		UPDATE t4_mm_jk
+		SET t4status = '0'
+		WHERE t4status = '1' AND t4id = #value#
+	</update>	
+	<update id="deleteT5" parameterClass="java.lang.Integer">
+		UPDATE t5_en_jk
+		SET t5status = '0'
+		WHERE t5status = '1' AND t5id = #value#
+	</update>	
+	<update id="deleteT6" parameterClass="java.lang.Integer">
+		UPDATE t6_jm_jk
+		SET t6status = '0'
+		WHERE t6status = '1' AND t6id = #value#
+	</update>
+	
+</sqlMap>

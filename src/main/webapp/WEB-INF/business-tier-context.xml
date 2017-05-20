@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!-- <beans> <bean id="osStockService" class="app.services.OSStockServiceDefault"> 
+	<property name="dao" ref="osStockDao2" /> <property name="transactionManager" 
+	ref="transactionManager" /> </bean> <bean id="osSaleInfoService" class="app.services.OSSaleInfoServiceDefault"> 
+	<property name="dao" ref="osSaleInfoDao2" /> <property name="transactionManager" 
+	ref="transactionManager" /> </bean> </beans> -->
+	
+<beans>
+
+	<!-- Disable scheduled Task -->
+	<!-- 
+	<bean id="scheduledTask" class="com.iiquick.boot.ScheduledTask"></bean>
+	<bean id="myTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">
+		<property name="timerTask">
+			<ref bean="scheduledTask"/>
+		</property>
+		<property name="period">
+			<value>120000</value>
+		</property>
+	</bean>
+	
+	<bean class="org.springframework.scheduling.timer.TimerFactoryBean">
+		<property name="scheduledTimerTasks">
+			<list>
+				<ref bean="myTask"/>
+			</list>
+		</property>
+	</bean>
+	-->
+
+</beans>

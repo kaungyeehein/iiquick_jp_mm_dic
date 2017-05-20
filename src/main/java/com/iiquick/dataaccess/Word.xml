@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="Word">
+
+	<cacheModel id="wordCache" type="MEMORY" readOnly="false"
+		serialize="true">
+		<flushInterval hours="24" />
+		<flushOnExecute statement="Word.insertEN" />
+		<flushOnExecute statement="Word.insertJK" />
+		<flushOnExecute statement="Word.insertJM" />
+		<flushOnExecute statement="Word.insertMM" />
+	</cacheModel>
+
+	<typeAlias alias="jmrObject" type="com.iiquick.domain.JMR" />
+	<typeAlias alias="wordObject" type="com.iiquick.domain.Word" />
+	
+	<!-- <resultMap id="strMap" class="java.lang.String">
+		<result property="value" columnIndex="1"/>
+	</resultMap> -->
+	
+	<resultMap id="strMap" class="wordObject">
+		<result property="value" columnIndex="1" />
+	</resultMap>
+	
+	<resultMap id="wordMap" class="wordObject">
+		<result property="id" columnIndex="1" />
+		<result property="value" columnIndex="2" />
+		<result property="desc" columnIndex="3" />
+	</resultMap>
+
+	<insert id="insertEN" parameterClass="java.lang.String">
+		INSERT INTO
+		en ( enword )
+		VALUES ( #value# )
+	</insert>
+	<insert id="insertJK" parameterClass="java.lang.String">
+		INSERT INTO
+		jk ( jkword )
+		VALUES ( #value# )
+	</insert>
+	<insert id="insertJM" parameterClass="jmrObject">
+		INSERT INTO
+		jm ( jmword , jmromaji)
+		VALUES ( #jmword# , #jmromaji# )
+	</insert>
+	<insert id="insertMM" parameterClass="java.lang.String">
+		INSERT INTO
+		mm ( mmword )
+		VALUES ( #value# )
+	</insert>
+	
+	<select id="getAllEnword" resultMap="wordMap">
+		SELECT en.enid, en.enword, '' as description
+		FROM en
+		WHERE en.enstatus = '1'
+		ORDER BY en.enword ASC
+	</select>
+	<select id="getAllJmword" resultMap="wordMap">
+		SELECT jm.jmid, jm.jmword, jm.jmromaji
+		FROM jm
+		WHERE jm.jmstatus = '1'
+		ORDER BY jm.jmword ASC
+	</select>
+	<select id="getAllJkword" resultMap="wordMap">
+		SELECT jk.jkid, jk.jkword, '' as description
+		FROM jk
+		WHERE jk.jkstatus = '1'
+		ORDER BY jk.jkword ASC
+	</select>
+	<select id="getAllMmword" resultMap="wordMap">
+		SELECT mm.mmid, mm.mmword, '' as description
+		FROM mm
+		WHERE mm.mmstatus = '1'
+		ORDER BY mm.mmword ASC
+	</select>
+	
+	<select id="getEnword" resultMap="strMap" parameterClass="java.lang.String">
+		SELECT en.enword
+		FROM en
+		WHERE en.enstatus = '1' AND en.enword  LIKE '$value$%'
+		ORDER BY en.enword ASC
+		LIMIT 0 , 10
+	</select>
+	<select id="getJkword" resultMap="strMap" parameterClass="java.lang.String">
+		SELECT jk.jkword
+		FROM jk
+		WHERE jk.jkstatus = '1' AND jk.jkword  LIKE '$value$%'
+		ORDER BY jk.jkword ASC
+		LIMIT 0 , 10
+	</select>
+	<select id="getJmword" resultMap="strMap" parameterClass="java.lang.String">
+		SELECT jm.jmword
+		FROM jm
+		WHERE jm.jmstatus = '1' AND jm.jmword  LIKE '$value$%'
+		ORDER BY jm.jmword ASC
+		LIMIT 0 , 10
+	</select>
+	<select id="getMmword" resultMap="strMap" parameterClass="java.lang.String">
+		SELECT mm.mmword
+		FROM mm
+		WHERE mm.mmstatus = '1' AND mm.mmword  LIKE '$value$%'
+		ORDER BY mm.mmword ASC
+		LIMIT 0 , 10
+	</select>
+	
+	<select id="getEnidByWord" resultClass="java.lang.Integer" parameterClass="java.lang.String">
+		SELECT enid
+		FROM en
+		WHERE enstatus = '1' AND enword = #value#
+	</select>
+	<select id="getJkidByWord" resultClass="java.lang.Integer" parameterClass="java.lang.String">
+		SELECT jkid
+		FROM jk
+		WHERE jkstatus = '1' AND jkword = #value#
+	</select>
+	<select id="getJmidByWord" resultClass="java.lang.Integer" parameterClass="java.lang.String">
+		SELECT jmid
+		FROM jm
+		WHERE jmstatus = '1' AND jmword = #value#
+	</select>	
+	<select id="getMmidByWord" resultClass="java.lang.Integer" parameterClass="java.lang.String">
+		SELECT mmid
+		FROM mm
+		WHERE mmstatus = '1' AND mmword = #value#
+	</select>
+	
+	<select id="countEn" resultClass="java.lang.Integer" >
+		SELECT COUNT(*) FROM en WHERE enstatus = '1'
+	</select>	
+	<select id="countJk" resultClass="java.lang.Integer" >
+		SELECT COUNT(*) FROM jk WHERE jkstatus = '1'
+	</select>	
+	<select id="countJm" resultClass="java.lang.Integer" >
+		SELECT COUNT(*) FROM jm WHERE jmstatus = '1'
+	</select>	
+	<select id="countMm" resultClass="java.lang.Integer" >
+		SELECT COUNT(*) FROM mm WHERE mmstatus = '1'
+	</select>
+
+</sqlMap>

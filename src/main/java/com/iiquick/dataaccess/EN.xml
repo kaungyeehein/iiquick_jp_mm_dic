@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//T" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="EN">
+
+	<cacheModel id="enCache" type="MEMORY" readOnly="false"
+		serialize="true">
+		<flushInterval hours="24" />
+		<!-- <flushOnExecute statement="EN.insert" /> -->
+	</cacheModel>
+
+	<typeAlias alias="resultObject" type="com.iiquick.domain.Result" />
+
+	<resultMap id="t1ResultMap" class="resultObject">
+		<result property="id" column="t1id" />
+		<result property="word1" column="mmword" />
+		<result property="word2" column="enword" />
+		<result property="wtype" column="wtname" />
+		<result property="correct" column="t1correct" />
+		<result property="incorrect" column="t1incorrect" />
+	</resultMap>
+
+	<resultMap id="t3ResultMap" class="resultObject">
+		<result property="id" column="t3id" />
+		<result property="word1" column="jmword" />
+		<result property="word2" column="enword" />
+		<result property="wtype" column="wtname" />
+		<result property="correct" column="t3correct" />
+		<result property="incorrect" column="t3incorrect" />
+	</resultMap>
+
+	<resultMap id="t5ResultMap" class="resultObject">
+		<result property="id" column="t5id" />
+		<result property="word1" column="jkword" />
+		<result property="word2" column="enword" />
+		<result property="wtype" column="wtname" />
+		<result property="correct" column="t5correct" />
+		<result property="incorrect" column="t5incorrect" />
+	</resultMap>
+
+	<select id="getENByMmword" resultMap="t1ResultMap" parameterClass="java.lang.String">
+		SELECT t1.t1id, mm.mmword, en.enword, wt.wtname, t1.t1correct, t1.t1incorrect
+		FROM
+		en INNER JOIN t1_mm_en AS t1
+		ON t1.enid = en.enid INNER JOIN mm
+		ON t1.mmid = mm.mmid INNER JOIN wt
+		ON t1.wtid = wt.wtid
+		WHERE en.enstatus = '1' AND t1.t1status = '1' AND mm.mmstatus = '1'
+		AND wt.wtstatus = '1' AND mm.mmword = #value#;
+	</select>
+	
+	<select id="getENByJmword" resultMap="t3ResultMap" parameterClass="java.lang.String">
+		SELECT t3.t3id, jm.jmword, en.enword, wt.wtname, t3.t3correct, t3.t3incorrect
+		FROM
+		en INNER JOIN t3_en_jm AS t3
+		ON t3.enid = en.enid INNER JOIN jm
+		ON t3.jmid = jm.jmid INNER JOIN wt
+		ON t3.wtid = wt.wtid
+		WHERE en.enstatus = '1' AND t3.t3status = '1' AND jm.jmstatus = '1'
+		AND wt.wtstatus = '1' AND jm.jmword = #value#;
+	</select>
+	
+	<select id="getENByJkword" resultMap="t5ResultMap" parameterClass="java.lang.String">
+		SELECT t5.t5id, jk.jkword, en.enword, wt.wtname, t5.t5correct, t5.t5incorrect
+		FROM
+		en INNER JOIN t5_en_jk AS t5
+		ON t5.enid = en.enid INNER JOIN jk
+		ON t5.jkid = jk.jkid INNER JOIN wt
+		ON t5.wtid = wt.wtid
+		WHERE en.enstatus = '1' AND t5.t5status = '1' AND jk.jkstatus = '1'
+		AND wt.wtstatus = '1' AND jk.jkword = #value#;
+	</select>
+
+</sqlMap>
