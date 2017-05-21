@@ -56,7 +56,7 @@
 		ON t5.enid = en.enid INNER JOIN wt
 		ON t5.wtid = wt.wtid
 		WHERE jk.jkstatus = '1' AND t5.t5status = '1' AND en.enstatus = '1'
-		AND wt.wtstatus = '1' AND en.enword = #value#;
+		AND wt.wtstatus = '1' AND LOWER(en.enword) = #value#;
 	</select>
 	
 	<select id="getJKByJmword" resultMap="t6ResultMap" parameterClass="java.lang.String">

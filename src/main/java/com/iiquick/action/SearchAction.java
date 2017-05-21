@@ -99,17 +99,18 @@ public class SearchAction extends ActionSupport {
 				}
 			} else if (lstParameter.get("sby").equals("en")) {
 				System.out.println("Search by en:");
-				lstJKResult = jkdao.getJKByEnword(lstParameter.get("input"));
+				String tempEn = lstParameter.get("input").toLowerCase();
+				lstJKResult = jkdao.getJKByEnword(tempEn);
 				if(!lstJKResult.isEmpty()){
 					tvar[t] = "t5";
 					t++;
 				}
-				lstJMResult = jmdao.getJMByEnword(lstParameter.get("input"));
+				lstJMResult = jmdao.getJMByEnword(tempEn);
 				if(!lstJMResult.isEmpty()){
 					tvar[t] = "t3";
 					t++;
 				}
-				lstMMResult = mmdao.getMMByEnword(lstParameter.get("input"));
+				lstMMResult = mmdao.getMMByEnword(tempEn);
 				if(!lstMMResult.isEmpty()){
 					tvar[t] = "t1";
 					t++;

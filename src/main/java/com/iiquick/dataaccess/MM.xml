@@ -45,7 +45,7 @@
 		ON t1.enid = en.enid INNER JOIN wt
 		ON t1.wtid = wt.wtid
 		WHERE mm.mmstatus = '1' AND t1.t1status = '1' AND en.enstatus = '1'
-		AND wt.wtstatus = '1' AND en.enword = #value#;
+		AND wt.wtstatus = '1' AND LOWER(en.enword) = #value#;
 	</select>
 
 	<select id="getMMByJmword" resultMap="t2ResultMap" parameterClass="java.lang.String">

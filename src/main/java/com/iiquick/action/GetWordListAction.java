@@ -49,7 +49,7 @@ public class GetWordListAction extends ActionSupport {
 		    WordDao dao = (WordDao) getWebApplicationContext().getBean("wordDao");
 		    if (lstParameter.get("sby").equals("en")) {
 		    	System.out.println("GetWordListActionBy:en");
-		    	lstWord = dao.getEnword(lstParameter.get("input"));
+		    	lstWord = dao.getEnword(lstParameter.get("input").toLowerCase());
 		    }else if(lstParameter.get("sby").equals("jm")) {
 		    	System.out.println("GetWordListActionBy:jm");
 		    	lstWord = dao.getJmword(lstParameter.get("input"));

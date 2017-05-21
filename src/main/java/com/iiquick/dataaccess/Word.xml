@@ -77,14 +77,14 @@
 	<select id="getEnword" resultMap="strMap" parameterClass="java.lang.String">
 		SELECT en.enword
 		FROM en
-		WHERE en.enstatus = '1' AND en.enword  LIKE '$value$%'
+		WHERE en.enstatus = '1' AND LOWER(en.enword) LIKE '$value$%'
 		ORDER BY en.enword ASC
 		LIMIT 0 , 10
 	</select>
 	<select id="getJkword" resultMap="strMap" parameterClass="java.lang.String">
 		SELECT jk.jkword
 		FROM jk
-		WHERE jk.jkstatus = '1' AND jk.jkword  LIKE '$value$%'
+		WHERE jk.jkstatus = '1' AND jk.jkword LIKE '$value$%'
 		ORDER BY jk.jkword ASC
 		LIMIT 0 , 10
 	</select>
